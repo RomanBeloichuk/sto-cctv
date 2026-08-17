@@ -1,0 +1,701 @@
+<title>Семь камер на СТО</title>
+<style>
+  :root {
+    --ground:   #F1F2EF;
+    --surface:  #FBFBF9;
+    --surface-2:#E9EBE6;
+    --ink:      #1A1E1C;
+    --ink-2:    #5B625E;
+    --ink-3:    #868D89;
+    --rule:     #D3D8D2;
+    --rule-2:   #BFC5BE;
+    --accent:   #166D5B;
+    --accent-w: #E2EEE9;
+    --signal:   #9E4318;
+    --signal-w: #F6E9E1;
+
+    --display: "Avenir Next Condensed", "HelveticaNeue-CondensedBold", "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+    --measure: 68ch;
+    --pad: clamp(1.1rem, 4vw, 3.25rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #14171A;
+      --surface:  #1B1F22;
+      --surface-2:#23282C;
+      --ink:      #E7EAE7;
+      --ink-2:    #A0A8A3;
+      --ink-3:    #7B837E;
+      --rule:     #2D3337;
+      --rule-2:   #3D4448;
+      --accent:   #4FBFA4;
+      --accent-w: #17322C;
+      --signal:   #E0824F;
+      --signal-w: #33231A;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:   #14171A;
+    --surface:  #1B1F22;
+    --surface-2:#23282C;
+    --ink:      #E7EAE7;
+    --ink-2:    #A0A8A3;
+    --ink-3:    #7B837E;
+    --rule:     #2D3337;
+    --rule-2:   #3D4448;
+    --accent:   #4FBFA4;
+    --accent-w: #17322C;
+    --signal:   #E0824F;
+    --signal-w: #33231A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 0 var(--pad) 5rem;
+  }
+
+  /* ---------- title block ---------- */
+
+  .titleblock {
+    border-bottom: 2px solid var(--ink);
+    padding: clamp(2rem, 6vw, 3.5rem) 0 1.5rem;
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 7vw, 4.4rem);
+    line-height: .98;
+    letter-spacing: -.015em;
+    margin: .35rem 0 0;
+    text-wrap: balance;
+  }
+
+  .lede {
+    margin: 0;
+    max-width: var(--measure);
+    font-size: 1.06rem;
+    color: var(--ink-2);
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .fact {
+    background: var(--surface);
+    padding: .85rem 1rem 1rem;
+  }
+
+  .fact dt {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 .3rem;
+  }
+
+  .fact dd {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .fact dd small {
+    font-family: var(--body);
+    font-size: .78rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--ink-2);
+    display: block;
+    line-height: 1.35;
+    margin-top: .15rem;
+  }
+
+  /* ---------- sections ---------- */
+
+  section { padding-top: clamp(2.75rem, 6vw, 4rem); }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.55rem, 3.6vw, 2.15rem);
+    line-height: 1.08;
+    letter-spacing: -.008em;
+    margin: 0 0 .3rem;
+    text-wrap: balance;
+    display: flex;
+    align-items: baseline;
+    gap: .7rem;
+  }
+
+  h2 .num {
+    font-family: var(--mono);
+    font-size: .78rem;
+    font-weight: 400;
+    letter-spacing: .08em;
+    color: var(--accent);
+    flex: none;
+  }
+
+  h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.16rem;
+    letter-spacing: 0;
+    margin: 2rem 0 .5rem;
+  }
+
+  p { max-width: var(--measure); }
+  section > p:first-of-type { margin-top: .4rem; }
+
+  a { color: var(--accent); text-underline-offset: .16em; text-decoration-thickness: 1px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  /* ---------- tables ---------- */
+
+  .scroll {
+    overflow-x: auto;
+    margin: 1.15rem 0 .5rem;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 44rem;
+    font-size: .885rem;
+  }
+
+  thead th {
+    text-align: left;
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: .66rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding: .7rem .85rem;
+    border-bottom: 1px solid var(--rule-2);
+    white-space: nowrap;
+    background: var(--surface-2);
+  }
+
+  tbody td {
+    padding: .68rem .85rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:hover td { background: var(--surface-2); }
+
+  td.n, th.n {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  td.pos {
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--ink-3);
+    text-align: right;
+    width: 2.2rem;
+  }
+
+  td.item { min-width: 15rem; }
+  td.item .sub {
+    display: block;
+    color: var(--ink-2);
+    font-size: .8rem;
+    line-height: 1.45;
+    margin-top: .15rem;
+  }
+
+  tr.total td {
+    border-top: 2px solid var(--ink);
+    border-bottom: 0;
+    font-weight: 700;
+    background: var(--surface-2);
+  }
+  tr.total td.n { font-family: var(--mono); font-size: 1rem; }
+
+  tr.pick td { background: var(--accent-w); }
+  tr.pick:hover td { background: var(--accent-w); }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: .64rem;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: .16rem .42rem;
+    border: 1px solid var(--rule-2);
+    color: var(--ink-2);
+    white-space: nowrap;
+    line-height: 1.3;
+  }
+  .tag.ozon { border-color: var(--signal); color: var(--signal); }
+  .tag.onl  { border-color: var(--accent); color: var(--accent); }
+
+  caption {
+    caption-side: top;
+    text-align: left;
+    padding: .8rem .85rem;
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    background: var(--surface-2);
+  }
+
+  .note {
+    font-size: .85rem;
+    color: var(--ink-2);
+    max-width: var(--measure);
+    margin: .5rem 0 0;
+  }
+
+  /* ---------- callout ---------- */
+
+  .callout {
+    border-left: 3px solid var(--signal);
+    background: var(--signal-w);
+    padding: 1rem 1.15rem;
+    margin: 1.5rem 0;
+    max-width: var(--measure);
+  }
+  .callout p { margin: 0; max-width: none; }
+  .callout p + p { margin-top: .6rem; }
+  .callout .label {
+    font-family: var(--mono);
+    font-size: .66rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--signal);
+    display: block;
+    margin-bottom: .3rem;
+  }
+
+  /* ---------- checklist ---------- */
+
+  .checks {
+    list-style: none;
+    padding: 0;
+    margin: 1.1rem 0 0;
+    display: grid;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    max-width: 52rem;
+  }
+  .checks li {
+    background: var(--surface);
+    padding: .8rem 1rem .85rem 2.6rem;
+    position: relative;
+    font-size: .93rem;
+  }
+  .checks li::before {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 1.05rem;
+    width: .82rem;
+    height: .82rem;
+    border: 1.5px solid var(--rule-2);
+  }
+  .checks li b { font-weight: 600; }
+  .checks li .why {
+    display: block;
+    color: var(--ink-2);
+    font-size: .84rem;
+    line-height: 1.5;
+    margin-top: .18rem;
+  }
+
+  /* ---------- two-col ---------- */
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    gap: 1.6rem 2.4rem;
+    margin-top: 1.2rem;
+  }
+  .cols p { max-width: none; }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+    font-size: .82rem;
+    color: var(--ink-3);
+    max-width: var(--measure);
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="titleblock">
+    <div>
+      <div class="eyebrow">Спецификация · СТО · 17 августа 2026</div>
+      <h1>Семь камер на СТО</h1>
+    </div>
+    <p class="lede">Две уличные с дальнобойным зумом, пять в цеху, регистратор в офисе. Всё по одной витой паре — питание камер идёт от регистратора, отдельных блоков питания нет. Цены на 17.08.2026, наличие проверено. Кабель и ИБП в смету не входят.</p>
+    <dl class="facts">
+      <div class="fact"><dt>Итого</dt><dd>1&nbsp;536 <small>рублей за всё железо</small></dd></div>
+      <div class="fact"><dt>Архив</dt><dd>12 <small>суток круглосуточно / ~3 недели по движению</small></dd></div>
+      <div class="fact"><dt>Каналов</dt><dd>8 <small>занято 7, один в запасе</small></dd></div>
+      <div class="fact"><dt>Удалённый доступ</dt><dd>P2P <small>белый IP и проброс портов не нужны</small></dd></div>
+    </dl>
+  </header>
+
+  <!-- ================= 1 ================= -->
+  <section>
+    <h2><span class="num">01</span> Основная смета</h2>
+    <p>Разделено между двумя площадками: где дешевле — там и берём. Ozon выигрывает ровно на двух позициях, зато крупно.</p>
+
+    <div class="scroll">
+      <table>
+        <caption>Железо · доставка Ozon по Беларуси, цены в BYN</caption>
+        <thead>
+          <tr>
+            <th class="n">№</th>
+            <th>Позиция</th>
+            <th>Где</th>
+            <th class="n">Кол</th>
+            <th class="n">Цена</th>
+            <th class="n">Сумма</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="pos">1</td>
+            <td class="item">
+              <a href="https://catalog.onliner.by/dvr/hiwatch/dsn208pc">Регистратор HiWatch DS-N208P(C)</a>
+              <span class="sub">8 IP-каналов, 8 портов PoE, запись до 4 Мп, 60 Мбит/с, 1 отсек HDD, HDMI + VGA</span>
+            </td>
+            <td><span class="tag onl">Onliner</span></td>
+            <td class="n">1</td>
+            <td class="n">271.97</td>
+            <td class="n">271.97</td>
+          </tr>
+          <tr class="pick">
+            <td class="pos">2</td>
+            <td class="item">
+              <a href="https://ozon.by/product/hiwatch-ds-i456z-b-2-8-12mm-ip-kamera-videonablyudeniya-ulichnaya-belaya-3502526364/">Камера уличная HiWatch DS-I456Z(B)</a>
+              <span class="sub">4 Мп, вариофокал 2.8–12 мм с моторзумом, ИК 50 м, IP67, −30…+60 °C, WDR 120 дБ, слот microSD</span>
+            </td>
+            <td><span class="tag ozon">Ozon</span></td>
+            <td class="n">2</td>
+            <td class="n">204.19</td>
+            <td class="n">408.38</td>
+          </tr>
+          <tr>
+            <td class="pos">3</td>
+            <td class="item">
+              <a href="https://catalog.onliner.by/ipcamera/hiwatch/ipcb040b28">Камера в цех HiWatch IPC-B040(B) 2.8 мм</a>
+              <span class="sub">4 Мп, 99° по горизонтали, ИК 30 м, IP66, −40…+60 °C, микрофон, металлический корпус</span>
+            </td>
+            <td><span class="tag onl">Onliner</span></td>
+            <td class="n">5</td>
+            <td class="n">105.24</td>
+            <td class="n">526.20</td>
+          </tr>
+          <tr class="pick">
+            <td class="pos">4</td>
+            <td class="item">
+              <a href="https://ozon.by/product/seagate-3-tb-vnutrenniy-zhestkiy-disk-st3000vx010-3-5-5400-ob-min-sata-iii-6-gbit-s-dlya-2408419773/">Диск Seagate SkyHawk 3 ТБ ST3000VX010</a>
+              <span class="sub">Серия под круглосуточную запись видеонаблюдения</span>
+            </td>
+            <td><span class="tag ozon">Ozon</span></td>
+            <td class="n">1</td>
+            <td class="n">329.71</td>
+            <td class="n">329.71</td>
+          </tr>
+          <tr class="total">
+            <td class="pos"></td>
+            <td>Итого</td>
+            <td></td>
+            <td class="n">8</td>
+            <td class="n"></td>
+            <td class="n">1 536.26</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Цены на Ozon помечены как «Распродажа» с зачёркнутым ценником — перепроверь перед оплатой, они живут неделями, а не месяцами.</p>
+  </section>
+
+  <!-- ================= 2 ================= -->
+  <section>
+    <h2><span class="num">02</span> Почему именно эти позиции</h2>
+
+    <div class="cols">
+      <div>
+        <h3>Уличные — только вариофокал</h3>
+        <p>«Бить на 40 метров» — это два разных требования. Ночью нужна ИК-подсветка от 50 м: камера с «ИК 30 м» на сорока метрах показывает черноту. Днём нужна детализация, и она считается в пикселях на метр.</p>
+      </div>
+      <div>
+        <h3>Внутренние — уличные же</h3>
+        <p>Металлокаркас без утепления плюс буржуйка — это скачки температуры и конденсат. Домашние пластиковые камеры на 0…+40 °C там сдохнут к январю или запотеют. IPC-B040(B) заявлена на −40…+60 °C и стоит столько же.</p>
+        <p>Купола внутри СТО тоже плохо: колпак за полгода зарастает масляной взвесью, и ИК начинает светить сам в себя. Только цилиндры.</p>
+      </div>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <caption>Что видно на 40 метрах · камера 4 Мп, 2560 px по горизонтали</caption>
+        <thead>
+          <tr><th>Объектив</th><th class="n">Ширина кадра</th><th class="n">px/м</th><th>Что различимо</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2.8 мм (~100°)</td><td class="n">95 м</td><td class="n">27</td><td>«кто-то ходит» — и всё</td></tr>
+          <tr><td>4 мм (~80°)</td><td class="n">67 м</td><td class="n">38</td><td>силуэт, направление движения</td></tr>
+          <tr><td>6 мм (~54°)</td><td class="n">41 м</td><td class="n">62</td><td>что человек делает, цвет машины</td></tr>
+          <tr><td>8 мм (~41°)</td><td class="n">30 м</td><td class="n">85</td><td>одежда, характер действия</td></tr>
+          <tr class="pick"><td>12 мм (~28°)</td><td class="n">20 м</td><td class="n">128</td><td>узнать знакомого в лицо</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Отсюда и моторзум: ставишь камеру, крутишь фокусное с телефона, пока картинка не устроит по факту, а не по расчёту. Фикс 2.8 мм с прицелом на 40 метров — выброшенные деньги.</p>
+
+    <div class="callout">
+      <span class="label">Честная граница</span>
+      <p>Номер машины на 40 метрах не прочитает ни одна из этих камер. При 128 px/м номерной знак займёт около 67 пикселей по ширине — этого мало. Для номеров нужна отдельная камера на конкретную точку проезда. Лицо, одежду, что человек делает — да.</p>
+    </div>
+
+    <h3>Диск: 3 ТБ — это минимум, а не запас</h3>
+    <p>Регистратор пишет по кругу: забился диск — затирает старое. Объём = на сколько дней можно отмотать назад. Семь камер по 4 Мп в H.265 круглосуточно съедают примерно 220 ГБ в сутки.</p>
+    <div class="scroll">
+      <table>
+        <caption>Глубина архива и цена терабайта</caption>
+        <thead>
+          <tr><th>Диск</th><th class="n">Цена</th><th class="n">Круглосуточно</th><th class="n">С записью по движению внутри</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://catalog.onliner.by/hdd/seagate/st2000vx008">SkyHawk 1 ТБ ST1000VX005</a></td><td class="n">320.16</td><td class="n">4 суток</td><td class="n">~1 неделя</td></tr>
+          <tr><td>SkyHawk 2 ТБ ST2000VX008 <span class="tag ozon">Ozon</span></td><td class="n">339.78</td><td class="n">8 суток</td><td class="n">~2 недели</td></tr>
+          <tr class="pick"><td><a href="https://ozon.by/product/seagate-3-tb-vnutrenniy-zhestkiy-disk-st3000vx010-3-5-5400-ob-min-sata-iii-6-gbit-s-dlya-2408419773/">SkyHawk 3 ТБ ST3000VX010</a> <span class="tag ozon">Ozon</span></td><td class="n">329.71</td><td class="n">12 суток</td><td class="n">~3 недели</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/hdd/seagate/st4000vx007">SkyHawk 4 ТБ ST4000VX007</a></td><td class="n">431.15</td><td class="n">16 суток</td><td class="n">~месяц</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">3 ТБ стоит дешевле 2 ТБ и почти столько же, сколько 1 ТБ: внизу рынок схлопнут, любой рабочий диск под видеонаблюдение стоит около 330 р, дальше платишь только за терабайты сверху. Брать 1 ТБ ради десяти рублей — добровольно оставить себе четыре дня архива.</p>
+  </section>
+
+  <!-- ================= 3 ================= -->
+  <section>
+    <h2><span class="num">03</span> Апгрейды, если захочется</h2>
+    <p>Всё, что ниже, работает, но не обязательно. Порядок — по соотношению «сколько даёт» к «сколько стоит».</p>
+
+    <div class="scroll">
+      <table>
+        <caption>Замены по позициям</caption>
+        <thead>
+          <tr><th>Вместо чего</th><th>Что взять</th><th class="n">Доплата</th><th>Что это даёт</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>5 × IPC-B040(B)</td>
+            <td><a href="https://catalog.onliner.by/ipcamera/dahua/1439tl1pail0280b">Dahua HFW1439TL1P-A-IL-0280B</a> — 157.21 <span class="tag onl">Onliner</span></td>
+            <td class="n">+260</td>
+            <td>Smart Dual Light: ночью картинка цветная, а не ч/б. По серому не отличить синюю машину от зелёной</td>
+          </tr>
+          <tr>
+            <td>5 × IPC-B040(B)</td>
+            <td>HiWatch DS-I450L(D) ColorVu — 193.45 <span class="tag ozon">Ozon</span></td>
+            <td class="n">+441</td>
+            <td>То же самое, но своей семьёй — настроится сама при втыкании в PoE-порт</td>
+          </tr>
+          <tr>
+            <td>5 × IPC-B040(B)</td>
+            <td><a href="https://catalog.onliner.by/ipcamera/uniview/ipc2124ssadf40km">Uniview IPC2124SS-ADF40KM-I0</a> — 151.21 <span class="tag onl">Onliner</span></td>
+            <td class="n">+230</td>
+            <td>Матрица 1/2.7″ и F1.6 против 1/2.8″ и F2.2 — вдвое больше света. Но чужая семья: в HiWatch-регистратор заводится через ONVIF руками</td>
+          </tr>
+          <tr>
+            <td>DS-N208P(C)</td>
+            <td><a href="https://catalog.onliner.by/dvr/uniarcg/nvr208s2p8">Uniarch NVR-208S2-P8</a> — 279.00 <span class="tag onl">Onliner</span></td>
+            <td class="n">+7</td>
+            <td>Два отсека HDD, запись до 8 Мп, 160 Мбит/с вместо 60. Имеет смысл только если весь комплект целиком на Uniview</td>
+          </tr>
+          <tr>
+            <td>2 × DS-I456Z(B)</td>
+            <td><a href="https://catalog.onliner.by/ipcamera/uniview/ipc2322lbadzkg">Uniview IPC2322LB-ADZK-G</a> — 154.00</td>
+            <td class="n">−100</td>
+            <td>Экономия: тот же вариофокал 2.8–12 и ИК 50 м, но 2 Мп вместо 4. На 12 мм даёт ~96 px/м — ещё узнаваемо</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="label">Правило, которое дороже всего нарушить</span>
+      <p>Регистратор и камеры — одной семьи. HiWatch и Hikvision — одно, Uniarch и Uniview — одно, Dahua отдельно. Тогда камера при втыкании в PoE-порт настраивается сама и появляется в приложении. Чужая камера тоже заведётся через ONVIF, но руками, с IP-адресами, и часть функций отвалится.</p>
+    </div>
+  </section>
+
+  <!-- ================= 4 ================= -->
+  <section>
+    <h2><span class="num">04</span> Что ещё смотрели</h2>
+    <p>Полный список рассмотренного — на случай, если что-то из основной сметы разберут. Все позиции в наличии на 17.08.2026.</p>
+
+    <h3>Уличные: вариофокал, ИК от 50 м</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Камера</th><th class="n">Мп</th><th>Объектив</th><th class="n">ИК</th><th>Корпус</th><th class="n">Onliner</th><th class="n">Ozon</th></tr>
+        </thead>
+        <tbody>
+          <tr class="pick"><td><a href="https://catalog.onliner.by/ipcamera/hiwatch/dsi456zb">HiWatch DS-I456Z(B)</a></td><td class="n">4</td><td>2.8–12 мотор, F1.6</td><td class="n">50 м</td><td>цилиндр, IP67, −30 °C</td><td class="n">274.54</td><td class="n">204.19</td></tr>
+          <tr><td><a href="https://ozon.by/product/hiwatch-ds-i458z-b-2-8-12mm-ip-kamera-videonablyudeniya-ulichnaya-belaya-5080081665/">HiWatch DS-I458Z(B)</a></td><td class="n">4</td><td>2.8–12 мотор, F1.6</td><td class="n">50 м</td><td>купол</td><td class="n">261.94</td><td class="n">219.03</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/ipcamera/dahua/hfw1431t1pzss4">Dahua HFW1431T1P-ZS-S4</a></td><td class="n">4</td><td>2.8–12 мотор, F1.7</td><td class="n">50 м</td><td>цилиндр, IP67, −30 °C</td><td class="n">309.15</td><td class="n">—</td></tr>
+          <tr><td>ZKTeco BL-854N38S-S7</td><td class="n">4</td><td>2.8–12, F1.2–2.2</td><td class="n">50 м</td><td>цилиндр</td><td class="n">302.36</td><td class="n">—</td></tr>
+          <tr><td>Tiandy TC-C34KN 2.8–12</td><td class="n">4</td><td>2.8–12, F1.6</td><td class="n">50 м</td><td>купол</td><td class="n">306.47</td><td class="n">—</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/ipcamera/uniview/ipc2322lbadzkg">Uniview IPC2322LB-ADZK-G</a></td><td class="n">2</td><td>2.8–12 мотор, F1.6</td><td class="n">50 м</td><td>цилиндр, IP67, −30 °C</td><td class="n">154.00</td><td class="n">153.07</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Купол на улицу для дальнобоя брать не стоит: ИК отражается от колпака внутрь, зимой колпак залипает снегом.</p>
+
+    <h3>В цех: 4 Мп, корпус на мороз</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Камера</th><th class="n">Мп</th><th>Матрица / объектив</th><th class="n">ИК</th><th>Корпус</th><th class="n">Onliner</th></tr>
+        </thead>
+        <tbody>
+          <tr class="pick"><td><a href="https://catalog.onliner.by/ipcamera/hiwatch/ipcb040b28">HiWatch IPC-B040(B) 2.8</a></td><td class="n">4</td><td>1/2.8″, F2.2, 99°</td><td class="n">30 м</td><td>цилиндр, IP66, −40 °C</td><td class="n">105.24</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/ipcamera/hiwatch/dsi400d">HiWatch DS-I400(D) 2.8</a></td><td class="n">4</td><td>1/3″, F2.0, 99°</td><td class="n">30 м</td><td>цилиндр, IP67, −30 °C</td><td class="n">116.36</td></tr>
+          <tr><td>HiWatch DS-I400(D) 6 мм</td><td class="n">4</td><td>1/3″, F2.0, 45°</td><td class="n">30 м</td><td>цилиндр, IP67</td><td class="n">134.49</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/ipcamera/dahua/hfw1431s1p28s6">Dahua HFW1431S1P-0280B-S6</a></td><td class="n">4</td><td>1/2.9″, F2.0, 92°</td><td class="n">30 м</td><td>цилиндр, IP67, −40 °C</td><td class="n">122.19</td></tr>
+          <tr><td>Dahua HFW1431TC1P-A-0280B-S6</td><td class="n">4</td><td>1/2.9″, 2.8 мм</td><td class="n">30 м</td><td>цилиндр, IP67</td><td class="n">131.87</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/ipcamera/uniview/ipc2124ssadf40km">Uniview IPC2124SS-ADF40KM-I0</a></td><td class="n">4</td><td>1/2.7″, F1.6, 79°</td><td class="n">50 м</td><td>цилиндр, IP67, −40 °C</td><td class="n">151.21</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/ipcamera/dahua/1439tl1pail0280b">Dahua HFW1439TL1P-A-IL-0280B</a></td><td class="n">4</td><td>1/2.9″, Smart Dual Light</td><td class="n">30 м</td><td>цилиндр, IP67</td><td class="n">157.21</td></tr>
+          <tr><td>Tiandy TC-C34XN 2.8</td><td class="n">4</td><td>1/3″, F1.6</td><td class="n">30 м</td><td>купол</td><td class="n">125.00</td></tr>
+          <tr><td>Uniarch IPC-T124-APF40</td><td class="n">4</td><td>1/3″, 4 мм</td><td class="n">30 м</td><td>купол</td><td class="n">127.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Регистраторы: 8 каналов с PoE</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Модель</th><th class="n">Каналы</th><th class="n">Запись</th><th class="n">Поток</th><th class="n">HDD</th><th class="n">Onliner</th></tr>
+        </thead>
+        <tbody>
+          <tr class="pick"><td><a href="https://catalog.onliner.by/dvr/hiwatch/dsn208pc">HiWatch DS-N208P(C)</a></td><td class="n">8 + 8 PoE</td><td class="n">4 Мп</td><td class="n">60 Мбит/с</td><td class="n">1</td><td class="n">271.97</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/dvr/uniarcg/nvr208s2p8">Uniarch NVR-208S2-P8</a></td><td class="n">8 + 8 PoE</td><td class="n">8 Мп</td><td class="n">160 Мбит/с</td><td class="n">2</td><td class="n">279.00</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/dvr/uniarcg/nvr108e2p8">Uniarch NVR-108E2-P8</a></td><td class="n">8 + 8 PoE</td><td class="n">8 Мп</td><td class="n">—</td><td class="n">0</td><td class="n">280.91</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/dvr/tenda/n6p8h">Tenda N6P-8H</a></td><td class="n">8 + 8 PoE</td><td class="n">8 Мп</td><td class="n">—</td><td class="n">1</td><td class="n">323.81</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/dvr/hikvision/ds7108niq18pmd">Hikvision DS-7108NI-Q1/8P/M(D)</a></td><td class="n">8 + 8 PoE</td><td class="n">6 Мп</td><td class="n">—</td><td class="n">1</td><td class="n">389.37</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/dvr/dahua/nvr1108hs8ps3hv2">Dahua DHI-NVR1108HS-8P-S3/H V2.0</a></td><td class="n">8 + 8 PoE</td><td class="n">8 Мп</td><td class="n">—</td><td class="n">1</td><td class="n">412.35</td></tr>
+          <tr><td><a href="https://catalog.onliner.by/dvr/dahua/nvr21088p4ks3">Dahua DHI-NVR2108-8P-4KS3</a></td><td class="n">8 + 8 PoE</td><td class="n">12 Мп</td><td class="n">—</td><td class="n">1</td><td class="n">435.18</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Модель на 0 отсеков HDD в списке не опечатка — Uniarch NVR-108E2-P8 пишет только на сеть или карту, диск в него не поставить. Для нашей задачи не подходит.</p>
+
+    <h3>Готовые комплекты с Kufar — почему мимо</h3>
+    <p>На Kufar есть китайские наборы Hiseeu, Techage, G.Craftsman: 4 камеры плюс регистратор за 590–1190 р. Дёшево, но каналов четыре вместо нужных восьми, софт свой закрытый вместо Hik-Connect, гарантии нет, мороз −30 °C не заявлен. Магазины на Kufar продают тот же Uniarch NVR-208S2-P8 ровно за 279 р — смысла нет. Б/у камеры HiWatch и Hikvision по 100–280 р встречаются, но уличные б/у вслепую брать не стоит: их ресурс упирается в герметичность, а её не проверить.</p>
+  </section>
+
+  <!-- ================= 5 ================= -->
+  <section>
+    <h2><span class="num">05</span> Монтаж</h2>
+    <ul class="checks">
+      <li><b>Проверить, что тянут цельномедную одножильную витую пару, а не CCA.</b><span class="why">Омеднённый алюминий втрое дешевле, и на 60–80 метрах PoE на нём проседает: камера уходит в циклическую перезагрузку по ночам, когда включается ИК и потребление растёт вдвое. Днём при этом всё работает, и причину ищут месяцами. Срез жилы у меди красный насквозь, у CCA внутри серебристый; медь гнётся, CCA ломается с трёх-четырёх перегибов. Единственное в этой затее, что потом не переделать без вскрытия стен.</span></li>
+      <li><b>Тянуть восемь линий, а не семь.</b><span class="why">Восьмой канал на регистраторе всё равно свободен, а протянуть кабель потом дороже, чем сейчас, пока стены открыты.</span></li>
+      <li><b>Максимум 100 метров</b> от регистратора до самой дальней камеры.<span class="why">Это предел Ethernet, не рекомендация. С запасом на разводку по стене и спуски.</span></li>
+      <li><b>Оставить 1.5–2 м запаса кабеля у каждой камеры.</b><span class="why">Перевесить на полметра или довернуть на другой угол — рутина первого месяца. Без запаса это перетяжка линии.</span></li>
+      <li><b>Наружные участки — UV-стойкий кабель или гофра.</b><span class="why">Обычный серый на солнце трескается за пару сезонов, и трещина ловит воду.</span></li>
+      <li><b>Уличные соединения — в герметичной коробке, не на весу.</b><span class="why">RJ45 в открытом виде на улице живёт до первой оттепели.</span></li>
+      <li><b>Не вешать камеру над буржуйкой.</b><span class="why">Тепловой поток плюс сажа на стекле. Через месяц придётся лазить с тряпкой.</span></li>
+      <li><b>Уличные ставить так, чтобы ближняя земля не попадала в кадр.</b><span class="why">ИК засветит близкий асфальт, автоматика прижмёт экспозицию, и дальний план утонет в темноте. На 4–5 метрах с наклоном на 40 м это нормально, но проверить надо ночью.</span></li>
+      <li><b>Проверить каждую линию тестером до закрытия стен.</b><span class="why">Восемь линий — статистически одна будет обжата криво. Найти это на смонтированной камере втрое дольше.</span></li>
+    </ul>
+  </section>
+
+  <!-- ================= 6 ================= -->
+  <section>
+    <h2><span class="num">06</span> Настройка</h2>
+    <ul class="checks">
+      <li><b>Сменить пароль администратора на регистраторе первым делом.</b><span class="why">И не пробрасывать порты наружу. Именно так камеры СТО оказываются на публичных стримах.</span></li>
+      <li><b>Удалённый доступ — через P2P-облако, а не через белый IP.</b><span class="why">Hik-Connect для HiWatch и Hikvision, EZView или Guard Viewer для Uniview, DMSS для Dahua. Бесплатно, проброс портов не нужен, роутер подойдёт любой.</span></li>
+      <li><b>Уличные — круглосуточно, внутренние — по движению.</b><span class="why">Ночью и в выходные в цеху ничего не происходит. Это примерно вдвое к глубине архива на том же диске. Улицу по движению не ставить: зимой снег и дождь дают ложные срабатывания.</span></li>
+      <li><b>Предзапись 5–10 секунд, постзапись 30 секунд.</b><span class="why">Без этого запись по движению бесполезна: ролик начинается с середины события и обрывается на полудвижении.</span></li>
+      <li><b>Выставить зум на уличных по факту и обязательно проверить ночью.</b><span class="why">Днём картинка на 12 мм выглядит отлично, а ночью на том же зуме ИК может не добить. Компромисс ищется на месте.</span></li>
+      <li><b>Часовой пояс и синхронизация времени по NTP.</b><span class="why">Архив с неправильным временем бесполезен ровно тогда, когда понадобится.</span></li>
+      <li><b>Внутренним снизить поток до 15 к/с и 2 Мбит/с, если архива мало.</b><span class="why">На статичном цеху разницы в картинке не видно, а глубина вырастет в полтора раза.</span></li>
+      <li><b>Локально всё работает и без интернета.</b><span class="why">Монитор и мышь в HDMI регистратора — запись идёт. Воткнул в роутер позже — заработало удалённо. Переделывать ничего не надо.</span></li>
+    </ul>
+  </section>
+
+  <!-- ================= 7 ================= -->
+  <section>
+    <h2><span class="num">07</span> Что проверить при покупке</h2>
+
+    <div class="cols">
+      <div>
+        <h3>Диск</h3>
+        <p>Жёсткие диски на маркетплейсах — известная зона риска: попадаются восстановленные с обнулённым счётчиком. Экономия против Onliner тут 100–220 р, так что решай сам. Если берёшь на Ozon — проверь SMART в первые дни, поле «Power On Hours» должно быть около нуля. Возврат в 14 дней работает.</p>
+        <p>Спокойный вариант: <a href="https://catalog.onliner.by/hdd/seagate/st2000vx008">SkyHawk 2 ТБ на Onliner за 429.87</a> с местной гарантией.</p>
+      </div>
+      <div>
+        <h3>Бюджет PoE регистратора</h3>
+        <p>Семь камер по нашей смете — примерно 48 Вт. У восьмиканальных регистраторов этого класса бюджет обычно 60 Вт, то есть запас есть, но восьмая камера с ИК уже впритык. Уточни цифру в паспорте при покупке: если окажется меньше, восьмой канал придётся питать отдельно.</p>
+      </div>
+      <div>
+        <h3>Описания на Ozon</h3>
+        <p>В карточках регулярно врут: у одной и той же IPC-B040(B) в разных объявлениях указано «ИК до 30 м» и «ИК до 20 м», а 4-мегапиксельную DS-I450L называют Full HD. Ориентируйся на артикул, а не на текст. Артикулы в этой смете сверены с каталогом Onliner.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Цены и наличие: каталог Onliner и Ozon.by, проверено 17 августа 2026 года. Позиции на Ozon помечены как распродажа — перепроверяй перед оплатой. Расчёты глубины архива сделаны для семи камер 4 Мп в H.265 при круглосуточной записи, около 220 ГБ в сутки.
+  </footer>
+
+</div>
